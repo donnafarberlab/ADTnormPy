@@ -17,6 +17,8 @@ install.packages("remotes")
 remotes::install_github("yezhengSTAT/ADTnorm", build_vignettes = FALSE)
 quit("no")
 ```
+Note: if any dependencies fail to install via this command, you will see a warning that installation of packages had a "non-zero exit status". If this occurs, try installing/troubleshooting each dependency individually.
+
 Alternatively, R can be downloaded and installed using [CRAN](https://cran.rstudio.com/), and ADTnorm can be installed following the instructions [here](https://github.com/yezhengSTAT/ADTnorm). Running ADTnormPy will also trigger a check that may successfully install the required R packages. Because ADTnorm has many dependencies, installation time may be slow.
 
 Once R and ADTnorm are installed, you can install ADTnormPy. 
@@ -28,7 +30,10 @@ python -m pip install .
 ```
 
 ## Usage
-Once everything is installed, running ADTnorm is as simple as running: 
+
+Upon loading in packages, you will need to set the location of your R installation. You can see examples of this and other usage examples in **[this notebook](./ADTnormPyExampleUsage.ipynb).**
+
+Running ADTnorm can be as simple as running: 
 ```python
 adtnorm_df = adtnormpy.adtnorm(prot_df,
                          obs = obs,
@@ -43,6 +48,3 @@ There is also the ability to enable `save_fig` which will save figures of the pr
 Using `customize_landmark=True` you can also activate the Shiny app for careful customization of landmarks.
 
 <img align="center" src="./CustomizeLandmark.png" width="1000">
-
-**More examples of usage can be found in [this notebook](./ADTnormPyExampleUsage.ipynb).**
-

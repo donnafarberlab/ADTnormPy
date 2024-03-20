@@ -129,8 +129,8 @@ def adtnorm(data: Union[pd.DataFrame,anndata.AnnData,mudata.MuData],
         if return_location is None: 
             return_location = ADT_location
         if isinstance(data, mudata.MuData):
-            data.mod[return_location] = data.mod[ADT_location][:,marker_to_process] # Check that this subsets correctly.
-            data.mod[return_location].X = normalized_ADT_data
+            data.mod[return_location] = data.mod[ADT_location][:,marker_to_process].copy() # Check that this subsets correctly.
+            data.mod[return_location].X = adtnorm_res.values
         if isinstance(data, anndata.AnnData):
             if not return_to_layer:
                 adtnorm_res = pd.DataFrame(adtnorm_res,index=obs.index,columns=marker_to_process)
@@ -202,7 +202,7 @@ def _process_kwargs(kwargs):
     for i in kwargs.keys():
         if type(kwargs[i]) is str or type(kwargs[i]) is bool or type(kwargs[i]) is float or type(kwargs[i]) is int:
             pass
-        elif type(kwargs[i]) is tuple or  type(kwargs[i]) is list:
+        elif type(kwargs[i]) is tuple or type(kwargs[i]) is list:
             if type(kwargs[i][0]) is int:
                 kwargs[i] = rpy2.robjects.vectors.IntVector(kwargs[i]) 
             elif type(kwargs[i][0]) is float:
